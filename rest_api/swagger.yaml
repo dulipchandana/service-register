@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Service Registry API
+  description: API for managing service registry
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+paths:
+  /api/services:
+    get:
+      summary: Get all services
+      description: Returns a list of all registered services
+      responses:
+        '200':
+          description: Successfully retrieved services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '500':
+          description: Internal server error
+    
+    post:
+      summary: Create a new service
+      description: Register a new service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: Invalid request payload
+        '500':
+          description: Internal server error
+
+  /api/services/{serviceId}:
+    parameters:
+      - name: serviceId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the service
+    
+    get:
+      summary: Get service by ID
+      description: Returns a specific service by ID
+      responses:
+        '200':
+          description: Service found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '404':
+          description: Service not found
+        '500':
+          description: Internal server error
+    
+    put:
+      summary: Update service
+      description: Update an existing service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '200':
+          description: Service updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '404':
+          description: Service not found
+        '400':
+          description: Invalid request payload
+        '500':
+          description: Internal server error
+    
+    delete:
+      summary: Delete service
+      description: Delete an existing service
+      responses:
+        '204':
+          description: Service deleted successfully
+        '404':
+          description: Service not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Service:
+      type: object
+      properties:
+        service-name:
+          type: string
+          description: Name of the service
+        service-ip:
+          type: string
+          description: IP address of the service
+        service-port:
+          type: integer
+          description: Port number of the service
+        protocol:
+          type: string
+          description: Protocol used by the service (e.g., HTTP, HTTPS, TCP)
+      required:
+        - service-name
+        - service-ip
+        - service-port
+        - protocol
+      example:
+        service-name: "api-service"
+        service-ip: "192.168.1.100"
+        service-port: 5000
+        protocol: "HTTP"
+
+  securitySchemes: {}
+
+tags:
+  - name: Service Registry
+    description: Service management endpoints

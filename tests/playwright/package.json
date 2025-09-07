@@ -1,0 +1,31 @@
+{
+  "name": "chat-app-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for chat application",
+  "scripts": {
+    "test": "playwright test --config playwright.config.ts",
+    "test:chat": "playwright test tests/chat.test.ts --config playwright.config.ts",
+    "test:kafka": "playwright test tests/kafka.test.ts --config playwright.config.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.2.1",
+    "@types/wait-on": "^5.3.4",
+    "@types/which": "^3.0.4",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "kafkajs": "^2.2.4",
+    "swagger-parser": "^10.0.3",
+    "typescript": "^5.9.2",
+    "wait-on": "^8.0.4",
+    "which": "^5.0.0"
+  },
+  "main": "chat.test.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
